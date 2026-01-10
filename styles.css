@@ -78,6 +78,7 @@ a {
   justify-content: space-between;
   padding: 18px 0;
   gap: 18px;
+  flex-wrap: wrap;
 }
 
 .brand-title {
@@ -411,5 +412,50 @@ details[open] summary {
 
   .grid > article {
     grid-column: span 12;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(var(--container), calc(100% - 28px));
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .nav a {
+    padding: 8px 10px;
+  }
+
+  .hero {
+    padding: 44px 0 18px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .field-value {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .copy {
+    width: 100%;
   }
 }
