@@ -1,17 +1,17 @@
 :root {
-  --bg: #f6fbff;
-  --bg2: #fff7f0;
+  --bg: #fff9ef;
+  --bg2: #f2fbff;
   --card: rgba(255, 255, 255, 0.74);
   --card2: rgba(255, 255, 255, 0.86);
   --text: rgba(16, 33, 44, 0.94);
   --muted: rgba(16, 33, 44, 0.72);
   --faint: rgba(16, 33, 44, 0.58);
   --border: rgba(16, 33, 44, 0.14);
-  --shadow: 0 14px 40px rgba(16, 33, 44, 0.12);
+  --shadow: 0 14px 34px rgba(16, 33, 44, 0.1);
 
-  --primary: #86dbe3;
-  --primary2: #f2b6c8;
-  --focus: rgba(134, 219, 227, 0.55);
+  --primary: #48c7c2;
+  --primary2: #ffd1a3;
+  --focus: rgba(72, 199, 194, 0.45);
 
   --radius: 16px;
   --radius2: 22px;
@@ -31,9 +31,10 @@ body {
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
-  background: radial-gradient(1200px 700px at 12% 0%, rgba(134, 219, 227, 0.32), transparent 55%),
-    radial-gradient(900px 600px at 82% 6%, rgba(242, 182, 200, 0.28), transparent 55%),
-    radial-gradient(900px 700px at 55% 70%, rgba(255, 230, 190, 0.26), transparent 60%),
+  background:
+    radial-gradient(1100px 700px at 18% -10%, rgba(255, 209, 163, 0.5), transparent 55%),
+    radial-gradient(900px 600px at 85% 5%, rgba(72, 199, 194, 0.26), transparent 55%),
+    radial-gradient(900px 700px at 55% 75%, rgba(158, 221, 255, 0.22), transparent 60%),
     linear-gradient(180deg, var(--bg), var(--bg2));
   min-height: 100vh;
 }
@@ -68,7 +69,7 @@ a {
   top: 0;
   z-index: 10;
   backdrop-filter: blur(12px);
-  background: rgba(246, 251, 255, 0.78);
+  background: rgba(255, 249, 239, 0.78);
   border-bottom: 1px solid rgba(16, 33, 44, 0.1);
 }
 
@@ -118,6 +119,22 @@ a {
   padding: 64px 0 28px;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 240px at 15% 18%, rgba(72, 199, 194, 0.12), transparent 60%),
+    radial-gradient(900px 240px at 85% 30%, rgba(255, 209, 163, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
+  opacity: 0.9;
+}
+
+.hero {
+  position: relative;
+}
+
 .hero-inner {
   display: grid;
   grid-template-columns: 1.3fr 0.8fr;
@@ -151,8 +168,28 @@ a {
   font-size: 13px;
 }
 
+.banner {
+  padding: 8px 0 0;
+}
+
+.banner-media {
+  height: 420px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0)),
+    var(--banner-image, none);
+  background-size: cover;
+  background-position: center;
+}
+
 .section {
-  padding: 54px 0;
+  padding: 14px 0;
 }
 
 .section.alt {
@@ -185,6 +222,168 @@ a {
 
 .grid > article {
   grid-column: span 6;
+}
+
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.gift-grid.slider {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  overflow-y: visible;
+  align-items: flex-start;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px;
+}
+
+.gift-grid.slider .gift {
+  flex: 0 0 320px;
+  max-width: 320px;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 740px) {
+  .gift-grid.slider {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .gift-grid.slider .gift {
+    width: 100%;
+    max-width: none;
+  }
+
+  .gift {
+    max-width: none;
+  }
+}
+
+.gift-grid.slider::-webkit-scrollbar {
+  height: 10px;
+}
+
+.gift-grid.slider::-webkit-scrollbar-track {
+  background: rgba(16, 33, 44, 0.06);
+  border-radius: 999px;
+}
+
+.gift-grid.slider::-webkit-scrollbar-thumb {
+  background: rgba(16, 33, 44, 0.16);
+  border-radius: 999px;
+}
+
+.gift {
+  max-width: 340px;
+  width: 100%;
+}
+
+.gift {
+  display: flex;
+}
+
+.gift-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.gift-link:hover .gift-card {
+  transform: translateY(-1px);
+}
+
+.gift-card {
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.gift-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+  border-radius: var(--radius2);
+}
+
+.gift-summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.gift-summary::-webkit-details-marker {
+  display: none;
+}
+
+.gift-card {
+  border: 1px solid rgba(16, 33, 44, 0.12);
+  border-radius: var(--radius2);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.gift-media {
+  height: 210px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)),
+    radial-gradient(900px 280px at 20% 20%, rgba(72, 199, 194, 0.22), transparent 60%),
+    radial-gradient(900px 280px at 75% 35%, rgba(255, 209, 163, 0.32), transparent 60%),
+    var(--gift-image, none),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+  background-size: cover;
+  background-position: center;
+}
+
+.gift-media--registry {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)),
+    radial-gradient(900px 280px at 20% 18%, rgba(158, 221, 255, 0.24), transparent 60%),
+    radial-gradient(900px 280px at 78% 40%, rgba(255, 209, 163, 0.28), transparent 60%),
+    var(--gift-image, none),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+  background-size: cover;
+  background-position: center;
+}
+
+.gift-content {
+  padding: 16px;
+  background: rgba(232, 225, 214, 0.55);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 142px;
+}
+
+.gift-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 18px;
+}
+
+.gift-subtitle {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.gift-cta {
+  margin-top: 14px;
+  margin-top: auto;
+}
+
+.gift-details {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(16, 33, 44, 0.08);
 }
 
 .card {
@@ -267,17 +466,27 @@ a {
   color: var(--text);
 }
 
+.btn-dark {
+  border: 1px solid rgba(16, 33, 44, 0.85);
+  background: rgba(16, 33, 44, 0.92);
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.btn-dark:hover {
+  background: rgba(16, 33, 44, 0.98);
+}
+
 .btn:hover {
   background: rgba(255, 255, 255, 0.92);
 }
 
 .btn-primary {
-  border: 1px solid rgba(134, 219, 227, 0.55);
-  background: linear-gradient(90deg, rgba(134, 219, 227, 0.35), rgba(242, 182, 200, 0.28));
+  border: 1px solid rgba(72, 199, 194, 0.42);
+  background: linear-gradient(90deg, rgba(72, 199, 194, 0.3), rgba(255, 209, 163, 0.35));
 }
 
 .btn-primary:hover {
-  background: linear-gradient(90deg, rgba(134, 219, 227, 0.48), rgba(242, 182, 200, 0.4));
+  background: linear-gradient(90deg, rgba(72, 199, 194, 0.42), rgba(255, 209, 163, 0.48));
 }
 
 .btn-secondary {
@@ -333,7 +542,7 @@ summary:focus-visible {
   margin-top: 18px;
   border: 1px solid rgba(16, 33, 44, 0.12);
   border-radius: var(--radius2);
-  background: linear-gradient(180deg, rgba(134, 219, 227, 0.22), rgba(242, 182, 200, 0.14));
+  background: linear-gradient(180deg, rgba(255, 209, 163, 0.22), rgba(72, 199, 194, 0.14));
   padding: 16px;
 }
 
@@ -437,7 +646,7 @@ details[open] summary {
   }
 
   .hero {
-    padding: 44px 0 18px;
+    padding: 14px 0 18px;
   }
 
   .hero-actions {
@@ -457,5 +666,22 @@ details[open] summary {
 
   .copy {
     width: 100%;
+  }
+
+  .gift-media {
+    height: 180px;
+  }
+
+  .banner-media {
+    height: 170px;
+  }
+
+  .gift-grid.slider {
+    gap: 14px;
+  }
+
+  .gift-grid.slider .gift {
+    flex-basis: 86vw;
+    max-width: 86vw;
   }
 }
