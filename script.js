@@ -1,148 +1,49 @@
-const CONFIG = {
-  rsvpUrl: "https://www.zola.com/wedding/rebeccagavin2026/rsvp",
-  weddingWebsiteUrl: "PASTE_WEDDING_WEBSITE_LINK_HERE",
-};
+const toastEl = document.querySelector('.toast');
 
-function svgDataUrl(svg) {
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+let toastTimer;
+function showToast(message) {
+  if (!toastEl) return;
+  toastEl.textContent = message;
+  toastEl.hidden = false;
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    toastEl.hidden = true;
+  }, 1800);
 }
 
-function attachImageFallback(img, svgMarkup) {
-  if (!img) return;
-  img.addEventListener(
-    "error",
-    () => {
-      img.src = svgDataUrl(svgMarkup);
-    },
-    { once: true },
-  );
-}
-
-function prefersReducedMotion() {
-  return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function runIntroAnimation() {
-  const intro = document.getElementById("intro");
-  const invite = document.getElementById("invite");
-  if (!intro || !invite) return;
-
-  if (prefersReducedMotion()) {
-    document.body.classList.remove("intro-lock");
-    document.body.classList.remove("intro-playing");
-    document.body.classList.add("intro-done");
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('Copied to clipboard');
     return;
+  } catch {
+    // Fallback below
   }
 
-  document.body.classList.add("intro-lock");
-
-  requestAnimationFrame(() => {
-    document.body.classList.add("intro-playing");
-  });
-
-  window.setTimeout(() => {
-    document.body.classList.remove("intro-playing");
-    document.body.classList.add("intro-done");
-    document.body.classList.remove("intro-lock");
-  }, 2800);
-}
-
-function normalizeUrl(url) {
-  if (!url) return "";
-  const trimmed = String(url).trim();
-  if (!trimmed) return "";
-  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
-  return `https://${trimmed}`;
-}
-function logLinkClick(tracker, referrer) {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-  
-  if (!id) return;
-
-  const base = 'https://script.google.com/macros/s/AKfycbwl57S2OF5bu5ipPZqG0ZwrGBY0l6c2MAWyCtGwToYuM45oh6zVENACfPkpbSSAPxxi/exec';
-  
-  const trackingParams = new URLSearchParams({
-    id: id,                     // Column A
-    campaign: 'invite_open',    // Column D
-    recipient: id,              // <--- THIS puts the ID in Column E
-    ua: tracker || navigator.userAgent,           
-    ref: referrer || document.referrer, 
-    t: Date.now()
-  });
-
-  fetch(`${base}?${trackingParams.toString()}`, {
-    mode: 'no-cors',
-    keepalive: true,
-  });
-}
-
-function setLink(el, url) {
-  const normalized = normalizeUrl(url);
-  if (!normalized) {
-    el.setAttribute("href", "#");
-    el.setAttribute("aria-disabled", "true");
-    el.classList.add("is-disabled");
-    el.addEventListener("click", (e) => e.preventDefault());
-    return;
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('Copied to clipboard');
+  } catch {
+    showToast('Copy failed');
+  } finally {
+    document.body.removeChild(ta);
   }
-
-  el.setAttribute("href", normalized);
 }
 
-(function init() {
-  const rsvpButton = document.getElementById("rsvpButton");
-  const websiteButton = document.getElementById("websiteButton");
-  const websiteUrlText = document.getElementById("websiteUrlText");
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-copy-button]');
+  if (!btn) return;
 
-  const heroPhoto = document.querySelector(".hero-photo");
-  const inviteImage = document.querySelector(".invite-image");
+  const container = btn.closest('[data-copy-value]');
+  if (!container) return;
 
-  attachImageFallback(
-    heroPhoto,
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
-      <defs>
-        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-          <stop stop-color="#f2f2f2" offset="0" />
-          <stop stop-color="#e7eef7" offset="1" />
-        </linearGradient>
-      </defs>
-      <rect width="1200" height="700" rx="34" fill="url(#g)" />
-      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#777" font-family="Inter, Arial" font-size="42">
-        Add couple-photo.jpg
-      </text>
-    </svg>`,
-  );
-
-  attachImageFallback(
-    inviteImage,
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200">
-      <defs>
-        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-          <stop stop-color="#e9f2fb" offset="0" />
-          <stop stop-color="#ffffff" offset="1" />
-        </linearGradient>
-      </defs>
-      <rect width="900" height="1200" rx="36" fill="url(#g2)" />
-      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#777" font-family="Inter, Arial" font-size="40">
-        Add invite-art.jpg
-      </text>
-    </svg>`,
-  );
-
-  runIntroAnimation();
-  logLinkClick('INVITE_LINK_OPEN','WEDDING_INVITE_OPEN');
-  if (rsvpButton) {
-    rsvpButton.addEventListener("click", (e) => {
-      e.preventDefault(); // This stops the '#' from jumping the page to the top
-      logLinkClick('RSVP_CLICKED', "WEDDING_INVITE_RSVP");     // Optional: Run your tracking
-      window.open(CONFIG.rsvpUrl, "_blank", "noreferrer");
-    });
-  }
-  if (websiteButton) setLink(websiteButton, CONFIG.weddingWebsiteUrl);
-
-  const websiteText = normalizeUrl(CONFIG.weddingWebsiteUrl);
-  if (websiteUrlText && websiteText) {
-    websiteUrlText.textContent = websiteText.replace(/^https?:\/\//, "");
-  }
-})();
+  const value = container.getAttribute('data-copy-value') || '';
+  copyText(value);
+});

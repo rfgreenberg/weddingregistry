@@ -2,106 +2,110 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light" />
-
-    <title>Wedding Invitation</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Wedding registry and honeymoon fund details" />
+    <title>Registry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="page" aria-label="Wedding invitation">
-      <div class="intro" id="intro" aria-hidden="true">
-        <div class="envelope" aria-hidden="true">
-          <div class="env env-back"></div>
-          <div class="env env-paper"></div>
-          <div class="env env-front"></div>
-          <div class="env env-flap"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-          <div class="intro-card" aria-hidden="true">
-            <div class="intro-card-inner">
-              <div class="intro-to">You’re invited</div>
-              <div class="intro-names">Rebecca &amp; Gavin's Wedding</div>
-              <div class="intro-date">July 5, 2026</div>
-            </div>
-          </div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand-title">Registry</div>
+          <div class="brand-subtitle">Thank you for celebrating with us</div>
         </div>
+
+        <nav class="nav" aria-label="Site">
+          <a href="https://www.zola.com/wedding/rebeccagavin2026/poi">← Wedding website</a>
+        </nav>
       </div>
+    </header>
 
-      <div class="invite" id="invite">
-        <img
-          class="hero-photo"
-          src="./inviteimage.png"
-          alt="Photo of the couple"
-        />
-
-        <div class="hosts" aria-label="Hosts">
-          Mr. and Mrs. Brian & Lori Greenberg along with Mr. and Mrs. Laurence & Cheryl Broll
-          joyfully invite you to the wedding of Rebecca and Gavin.
+    
+    <main id="main">
+        <section class="banner" aria-label="Banner image">
+        <div class="banner-media" style="--banner-image: url('banner.png')"></div>
+      </section>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h1>We’re so grateful you’re here!</h1>
+            <p>
+              Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, a contribution towards our Honeymoon Fund would help us create memories that will last a lifetime. For those who prefer purchasing physical gifts, our Crate &amp; Barrel registry has items for our home.
+            </p>
+            <p class="hero-note">
+              Prefer a card? We’ll have a card box at the celebration.
+            </p>
+          </div>
         </div>
+      </section>
 
-        <h2 class="section-title" id="events">Wedding Events</h2>
-
-        <div class="events" aria-label="Events list">
-          <div class="event">
-            <div class="event-date">Saturday, July 4th, 5:00 PM : Welcome BBQ</div>
-            <div class="event-location">Location: Mavericks House - Half Moon Bay, CA</div>
-            <div class="event-body">
-              <div>Let us welcome you and celebrate America’s 250th birthday together.</div>
-              <div>Dress Code: Casual, July 4th Spirit</div>
-            </div>
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Gifts</h2>
           </div>
 
-          <div class="event">
-            <div class="event-date">Sunday, July 5th, 3:00pm : Wedding Day</div>
-            <div class="event-location">Location: Oceano Hotel - Half Moon Bay, CA</div>
-            <div class="event-body">
-              <div>
-                We invite you to our wedding ceremony outside and reception. The ceremony will begin at
-                3 p.m. and reception will follow indoors in the hotel.
+          <div class="gift-grid slider" aria-label="Gift options">
+            <a class="gift gift-link" href="honeymoon.html" aria-label="Honeymoon Fund">
+              <div class="gift-card">
+                <div class="gift-media" aria-hidden="true" style="--gift-image: url('honeymoon.png')"></div>
+                <div class="gift-content">
+                  <div class="gift-title">Honeymoon Fund</div>
+                  <div class="gift-subtitle">Contribute via Zelle, Venmo, PayPal, or Australian Bank Transfer</div>
+                  <div class="gift-cta">
+                    <span class="btn btn-dark">Contribute to gift</span>
+                  </div>
+                </div>
               </div>
-              <div>Dress Code: Cocktail Attire</div>
-            </div>
-          </div>
+            </a>
 
-          <div class="event">
-            <div class="event-date">Monday, July 6th, 9:30 AM : Farewell Brunch</div>
-            <div class="event-location">Location: Oceano Hotel - Half Moon Bay, CA</div>
-            <div class="event-body">
-              <div>Join us for a farewell brunch at the hotel at 9:30 A.M.</div>
-              <div>Dress Code: Casual</div>
-            </div>
+            <a
+              class="gift gift-link"
+              href="https://www.crateandbarrel.com/gift-registry/rebecca-greenberg-and-gavin-broll/r7563518"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Crate and Barrel Registry"
+            >
+              <div class="gift-card">
+                <div
+                  class="gift-media gift-media--registry"
+                  aria-hidden="true"
+                  style="--gift-image: url('registry.png')"
+                ></div>
+                <div class="gift-content">
+                  <div class="gift-title">Crate &amp; Barrel Registry</div>
+                  <div class="gift-subtitle">Shop our gift registry</div>
+                  <div class="gift-cta">
+                    <span class="btn btn-dark">View registry</span>
+                  </div>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
-
-         <div class="event">
-            <div class="event-location">Note for Dress Code: Bring layers for when you're outside, Half Moon Bay can get chilly even in summer time.</div>
-          </div>
-
-        <div class="rsvp-block" aria-label="RSVP">
-          <div class="rsvp-title">RSVP online by June 1st</div>
-          <a
-            class="btn btn-primary"
-            id="rsvpButton"
-            href="https://www.zola.com/wedding/rebeccagavin2026/rsvp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            RSVP online
-          </a>
-          <div class="rsvp-note">Check email for website password.</div>
-        </div>
-
-      </div>
+      </section>
     </main>
 
-    <script src="./script.js"></script>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="muted">Made with love.</div>
+        <a class="muted" href="#main">Back to top</a>
+      </div>
+    </footer>
+
+    <div class="toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+      Copied to clipboard
+    </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
